@@ -18,7 +18,7 @@ const taskSchema = new mongoose.Schema({
     }, 
     data: {
         type: String,
-        default: new Date().toISOString.split('T')[0],
+        default: new Date().toISOString().split('T')[0],
         required: true
     },
     createdAt: {
