@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 require('dotenv').config();
 
 const connectDB = require('./config/db.js');
@@ -10,12 +11,22 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, '../public')));
+
 app.use('/api/tasks', taskRouter);
 
 
 app.get('/', (req, res) => {
-    res.send('Welcome to the Task Management');
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
+
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: 'Такої сторінки не існує'
+    })
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`)

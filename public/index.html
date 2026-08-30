@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo list</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Мої завдання</h1>
+            <p class="subtitle">Список завдань.</p>
+        </header>
+
+        <div class="add-task-section">
+            <form id="taskForm" class="task-form">
+                <div class="form-group">
+                    <input type="text"
+                        id="taskTitle"
+                        placeholder="Назва завдання"
+                        required
+                        maxlength="100"
+                    />
+                </div>
+                <div class="form-group">
+                    <textarea id="taskDescription"
+                        placeholder="Опис (не обов'язковий)"
+                        maxlength="300"
+                        rows="3"
+                    ></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="taskPriority">Пріорітет:</label>
+                        <select id="taskPriority">
+                            <option value="low">Низький</option>
+                            <option value="medium" selected>Середній</option>
+                            <option value="high">Високий</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDate">Дата:</label>
+                        <input type="date" id="taskDate" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submitBtnTask">Додатки завдання</button>
+                <button type="button" id="cancelEdit" class="btn btn-primary" style="display: none;">Скасувати редагування</button>
+            </form>
+        </div>
+
+        <div class="controls">
+            <div class="filter-section">
+                <label>Фільтр за пріорітетом:</label>
+                <div class="filter-buttons">
+                    <div class="filter-btn active" data-filter="all">Всі</div>
+                    <div class="filter-btn" data-filter="high">Високий</div>
+                    <div class="filter-btn" data-filter="medium">Середній</div>
+                    <div class="filter-btn" data-filter="low">Низький</div>
+                </div>
+            </div>
+
+            <div class="sort-section">
+                <label for="sortBy">Стортування:</label>
+                <select name="sortBy" id="sortBy">
+                    <option value="">За замовчування</option>
+                    <option value="priority">За пріорітетом</option>
+                    <option value="data">За датою</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="tasksList" class="tasks-list">
+            <div class="empty-state" id="emptyState">
+                <p>Нема завдань. Добавте нове завдання</p>
+            </div>
+
+            <div class="task-card priority-low">
+                <div class="task-header">
+                    <div>
+                        <h3 class="task-title">Зробити домашнє завдання</h3>
+                        <span class="task-priority priority-low"></span>
+                    </div>
+                </div>
+                <p class="task-description">Дз з математики</p>
+                <div class="task-meta">
+                    <div class="task-data">
+                        <span>Дата: 12/12/2026</span>
+                    </div>
+                    <div class="task-data">
+                        <span>Створено: 30/08/2026 </span>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <button class="btn-edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 16 16">
+                            <path d="M12.527 7.473L8.527 3.473 1 11 1 15 5 15zM11.172.828l-1.065 1.065 4 4 1.065-1.065c1.105-1.105 1.105-2.895 0-4l0 0C14.067-.276 12.276-.276 11.172.828z"></path>
+                        </svg>                    
+                    </button>
+                    <button class="btn-delete">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 16 16">
+                            <path d="M10.667 2L10 1 6 1 5.333 2 1 2 1 4 15 4 15 2zM1.773 6L3 15 13 15 14.227 6z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="task-card priority-medium">
+                <div class="task-header">
+                    <div>
+                        <h3 class="task-title">Зробити домашнє завдання</h3>
+                        <span class="task-priority priority-medium"></span>
+                    </div>
+                </div>
+                <p class="task-description">Дз з математики</p>
+                <div class="task-meta">
+                    <div class="task-data">
+                        <span>Дата: 12/12/2026</span>
+                    </div>
+                    <div class="task-data">
+                        <span>Створено: 30/08/2026 </span>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <button class="btn-edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 16 16">
+                            <path d="M12.527 7.473L8.527 3.473 1 11 1 15 5 15zM11.172.828l-1.065 1.065 4 4 1.065-1.065c1.105-1.105 1.105-2.895 0-4l0 0C14.067-.276 12.276-.276 11.172.828z"></path>
+                        </svg>                    
+                    </button>
+                    <button class="btn-delete">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 16 16">
+                            <path d="M10.667 2L10 1 6 1 5.333 2 1 2 1 4 15 4 15 2zM1.773 6L3 15 13 15 14.227 6z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="task-card priority-high">
+                <div class="task-header">
+                    <div>
+                        <h3 class="task-title">Зробити домашнє завдання</h3>
+                        <span class="task-priority priority-high"></span>
+                    </div>
+                </div>
+                <p class="task-description">Дз з математики</p>
+                <div class="task-meta">
+                    <div class="task-data">
+                        <span>Дата: 12/12/2026</span>
+                    </div>
+                    <div class="task-data">
+                        <span>Створено: 30/08/2026 </span>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <button class="btn-edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 16 16">
+                            <path d="M12.527 7.473L8.527 3.473 1 11 1 15 5 15zM11.172.828l-1.065 1.065 4 4 1.065-1.065c1.105-1.105 1.105-2.895 0-4l0 0C14.067-.276 12.276-.276 11.172.828z"></path>
+                        </svg>                    
+                    </button>
+                    <button class="btn-delete">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 16 16">
+                            <path d="M10.667 2L10 1 6 1 5.333 2 1 2 1 4 15 4 15 2zM1.773 6L3 15 13 15 14.227 6z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    
+    <script src="./app.js"></script>
+</body>
+</html>
