@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task.js');
+const { validateTask, validateObjectId } = require('../middlewere/validation.js')
 
 router.use((req, res, next) => {
     console.log(`${req.method} ${req.originalUrl}`)
@@ -43,7 +44,7 @@ router.get('/', async (req, res) => {
 
 })
 
-router.post('/', async (req, res) => {
+router.post('/', validateTask, async (req, res) => {
     try {
         const { title, description, priority, data } = req.body;
 
@@ -70,7 +71,7 @@ router.post('/', async (req, res) => {
         });
     }
 })
-router.put('/:id', async (req, res) => {
+router.put('/:id', validateObjectId, validateTask, async (req, res) => {
     try{
         const { id } = req.params;
         const { title, description, priority, data } = req.body;
@@ -103,7 +104,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', validateObjectId, async (req, res) => {
     try{
         console.log('delete method')
         const { id } = req.params;
